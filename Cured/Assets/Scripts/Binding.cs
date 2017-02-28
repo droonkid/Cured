@@ -11,10 +11,6 @@ public class Binding : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		up = KeyCode.W;
-		down = KeyCode.S;
-		left = KeyCode.A;
-		right = KeyCode.D;
 	}
 	
 	// Update is called once per frame

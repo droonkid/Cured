@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Binding.cs" />
+     <Compile Include="Assets\Scripts\HelpfulScripts.cs" />
      <Compile Include="Assets\Scripts\OldScripts\ButtonPlacement.cs" />
      <Compile Include="Assets\Scripts\OldScripts\ButtonScript.cs" />
      <Compile Include="Assets\Scripts\OldScripts\CameraMovement.cs" />
