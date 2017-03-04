@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MainMenuButton : MonoBehaviour {
 
@@ -14,6 +15,6 @@ public class MainMenuButton : MonoBehaviour {
 	}
 
 	public void button () {
-		Application.LoadLevel ("MainMenu");
+		SceneManager.LoadScene ("MainMenu");
 	}
 }

@@ -1,5 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour {
 	public float gravity = 0;
@@ -7,7 +9,7 @@ public class PlayerMovement : MonoBehaviour {
 	public int fallRate = 10;
 	public bool onSolid = false;
 	public bool facingRight;
-	public new SpriteRenderer sRenderer;
+	public SpriteRenderer sRenderer;
 	public Sprite mainCharImg;
 	public Sprite paperImg;
 	public Sprite jumpImg1;
@@ -193,7 +195,7 @@ public class PlayerMovement : MonoBehaviour {
 			heldDownFor = 15f;
 		}
 		if (other.CompareTag ("Win")) {
-			Application.LoadLevel ("YouWin");
+			SceneManager.LoadScene ("YouWin");
 		}
 		if (other.CompareTag ("Boundry")) {
 			if (facingRight) {

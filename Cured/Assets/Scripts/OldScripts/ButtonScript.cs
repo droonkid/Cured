@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ButtonScript : MonoBehaviour {
 
@@ -9,7 +10,7 @@ public class ButtonScript : MonoBehaviour {
 	}
 
 	public void LoadGameLevel() {
-		Application.LoadLevel ("Game");
+		SceneManager.LoadScene ("Game");
 	}
 
 	// Update is called once per frame
