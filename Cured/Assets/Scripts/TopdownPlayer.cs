@@ -13,11 +13,13 @@ public class TopdownPlayer : MonoBehaviour {
 	public Vector2 lastTransform;
 	public float smoothTime = 1f;
 	public Vector2 targetDistance;
+	public Vector3[] lastpositions;
 
 	private Vector3 velocity = Vector3.zero;
 
 	// Use this for initialization
 	void Start () {
+		lastpositions = new Vector3[70];
 		spritegroup=s1;
 		spritechangeindex = 0;
 		keys = GameObject.Find ("Binding").GetComponent<Binding> ();
@@ -30,35 +32,35 @@ public class TopdownPlayer : MonoBehaviour {
 		//if (Input.GetKey (keys.up) && Input.GetKey (keys.down) || !(Input.GetKey (keys.up) && Input.GetKey (keys.down))) {
 		if (!(Input.GetKey (keys.up) ^ Input.GetKey (keys.down))) {
 			if ((Input.GetKey (keys.left) && Input.GetKey (keys.right)) || !(Input.GetKey (keys.left) || Input.GetKey (keys.right))) { // No Movement
-				moved=false;
+				moved = false;
 			} else if (Input.GetKey (keys.left)) { // Left
-				spritegroup= s1;
-				this.transform.eulerAngles = new Vector3(180, 0, 180);
+				spritegroup = s1;
+				this.transform.eulerAngles = new Vector3 (180, 0, 180);
 			} else if (Input.GetKey (keys.right)) { // Right
-				spritegroup= s1;
-				this.transform.eulerAngles = new Vector3(0, 0, 0);
+				spritegroup = s1;
+				this.transform.eulerAngles = new Vector3 (0, 0, 0);
 			}
 		} else if (Input.GetKey (keys.up)) {
 			if ((Input.GetKey (keys.left) && Input.GetKey (keys.right)) || !(Input.GetKey (keys.left) || Input.GetKey (keys.right))) { // Up
-				spritegroup= s1;
-				this.transform.eulerAngles = new Vector3(0, 0, 90);
+				spritegroup = s1;
+				this.transform.eulerAngles = new Vector3 (0, 0, 90);
 			} else if (Input.GetKey (keys.left)) { // Up Left
-				spritegroup= s2;
-				this.transform.eulerAngles = new Vector3(180, 0, 180);
+				spritegroup = s2;
+				this.transform.eulerAngles = new Vector3 (180, 0, 180);
 			} else if (Input.GetKey (keys.right)) { // Up Right
-				spritegroup= s2;
-				this.transform.eulerAngles = new Vector3(0, 0, 0);
+				spritegroup = s2;
+				this.transform.eulerAngles = new Vector3 (0, 0, 0);
 			}
 		} else if (Input.GetKey (keys.down)) {
 			if ((Input.GetKey (keys.left) && Input.GetKey (keys.right)) || !(Input.GetKey (keys.left) || Input.GetKey (keys.right))) { // Down
-				spritegroup= s1;
-				this.transform.eulerAngles = new Vector3(0, 0, 270);
+				spritegroup = s1;
+				this.transform.eulerAngles = new Vector3 (0, 0, 270);
 			} else if (Input.GetKey (keys.left)) { // Down Left
-				spritegroup= s2;
-				this.transform.eulerAngles = new Vector3(180, 0, 90);
+				spritegroup = s2;
+				this.transform.eulerAngles = new Vector3 (180, 0, 90);
 			} else if (Input.GetKey (keys.right)) { // Down Right
-				spritegroup= s2;
-				this.transform.eulerAngles = new Vector3(0, 0, 270);
+				spritegroup = s2;
+				this.transform.eulerAngles = new Vector3 (0, 0, 270);
 			}
 		}
 		if (moved) {spritechangeindex++;}
@@ -86,7 +88,7 @@ public class TopdownPlayer : MonoBehaviour {
 		} if (Input.GetKey (keys.down)) {
 			totalTransform += Vector2.down * speed;
 		}
-	
+		
 		bool done = false;
 		GameObject[] boundries = GameObject.FindGameObjectsWithTag ("Boundry");
 		Vector2 movement = new Vector2 ();
@@ -106,9 +108,15 @@ public class TopdownPlayer : MonoBehaviour {
 		this.GetComponent<BoxCollider2D> ().offset = new Vector2 (0, 0);
 		this.transform.Translate (movement-(totalTransform*-0.1f), Space.World);
 		*/
+		if (!((Vector3)totalTransform==Vector3.zero)) {
+			for (int i = 0; i < lastpositions.Length-1; i++) {
+				lastpositions.SetValue(lastpositions.GetValue(i+1), i);
+			}
+			lastpositions.SetValue(transform.position, lastpositions.Length-1);
+		}
 		lastTransform = totalTransform;
 		this.GetComponent<Rigidbody2D> ().velocity=totalTransform;
-		/*
+		/*xw
 		transform.position += (Vector3)totalTransform;
 		targetDistance+=totalTransform;
 		this.transform.position = Vector3.SmoothDamp (transform.position, targetDistance, ref velocity, smoothTime);
